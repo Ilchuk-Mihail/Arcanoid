@@ -221,6 +221,27 @@ namespace LevelCreater
                 {
                     blok = new Bloc(bloc.position, bloc.bloc4, 4);
                 }
+
+                if (bloc.Activ == 5)
+                {
+                    blok = new Bloc(bloc.position, bloc.bloc5, 5);
+                }
+
+                if (bloc.Activ == 6)
+                {
+                    blok = new Bloc(bloc.position, bloc.bloc6, 6);
+                }
+
+                if (bloc.Activ == 7)
+                {
+                    blok = new Bloc(bloc.position, bloc.bloc7, 7);
+                }
+
+                if (bloc.Activ == 8)
+                {
+                    blok = new Bloc(bloc.position, bloc.bloc8, 8);
+                }
+
                 Rectangle rectan = new Rectangle(bloc.position.X, bloc.position.Y, 50, 30);
 
                 for (int i = 0; i < 10; i++)
@@ -242,6 +263,18 @@ namespace LevelCreater
 
                             if (bloc.Activ == 4)
                                 level[i, j] = 4;
+
+                            if (bloc.Activ == 5)
+                                level[i, j] = 5;
+
+                            if (bloc.Activ == 6)
+                                level[i, j] = 6;
+
+                            if (bloc.Activ == 7)
+                                level[i, j] = 7;
+
+                            if (bloc.Activ == 8)
+                                level[i, j] = 8;
 
                             if (Pointer.delete)
                             {

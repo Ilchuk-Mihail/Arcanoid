@@ -48,10 +48,10 @@ namespace Arcanoid
             Help_ListBonusString = new List<string>(14); // список пояснень бонусів
             Help_BonusPosString = new Vector2[14];       //  початкові позиції/вектори
 
-            Help_BlocPosition = new Vector2[4];            // список позицій /векторів
-            Help_ListBloc = new List<Texture2D>();         // список усіх блоків / текстур
-            Help_ListBlocString = new List<string>(4);     // список пояснень блоків
-            Help_BlocPosString = new Vector2[4];
+            Help_BlocPosition = new Vector2[8];            // список позицій /векторів
+            Help_ListBloc = new List<Texture2D>(8);         // список усіх блоків / текстур
+            Help_ListBlocString = new List<string>(8);     // список пояснень блоків
+            Help_BlocPosString = new Vector2[8];
             positionCredits = new Vector2[2];
 
             Initialize_3();
@@ -67,17 +67,21 @@ namespace Arcanoid
             Startposition = new Vector2(-50, 100);
             StartpositionString = new Vector2(300, 100);
 
-            for (int index = 0; index < 4; index++)
+            for (int index = 0; index < 8; index++)
             {
                 Help_BlocPosition[index] = Startposition;
                 Help_BlocPosString[index] = StartpositionString;
    
-                Startposition.Y += 60f;
+                Startposition.Y += 58f;
                 StartpositionString.Y += 57f;
                 Help_ListBlocString.Add("Блок розбиваэться за один удар м'ча , може мiстити бонус.\nЗа нього нараховуэться 20 очок!");
                 Help_ListBlocString.Add("Блок розбиваэться за один удар м'ча , може мiстити бонус.\nЗа нього нараховуэться 10 очок!");    
                 Help_ListBlocString.Add("Блок не розбиваэться  :( , \nцей блок можуть розбити тiльки кулi якими стрiляэ ракетка! ");
                 Help_ListBlocString.Add("Блок розбиваэться за 5 ударiв м'ча , iнодi мiстить бонус.\nЗа нього нараховуэться 40 очок!");
+                Help_ListBlocString.Add("Блок розбиваэться за 1 удар м'ча , мiстить бонус. \nЗа нього нараховуэться 40 очок!");
+                Help_ListBlocString.Add("Блок розбиваэться за 2 удари м'ча , iнодi мiстить бонус.\nЗа нього нараховуэться 40 очок!");
+                Help_ListBlocString.Add("Блок розбиваэться за 3 удари м'ча , iнодi мiстить бонус. \nЗа нього нараховуэться 40 очок!");
+                Help_ListBlocString.Add("Блок розбиваэться за 4 удари м'ча , iнодi мiстить бонус. \nЗа нього нараховуэться 40 очок!");
 
             }
 
@@ -187,7 +191,7 @@ namespace Arcanoid
             Initialize();
             Initialize_3();
 
-            for (int index = 0; index < 4; index++)
+            for (int index = 0; index < 8; index++)
             {
                 if (Help_BlocPosition[index].X <= 50)
                     Help_BlocPosition[index].X += 1.5f;
@@ -253,7 +257,7 @@ namespace Arcanoid
         {
             spriteBatch.Draw(Backgrounds, Vector2.Zero, Color.White);
 
-            for (int index = 0; index < 4; index++)
+            for (int index = 0; index < 8; index++)
             {
                 spriteBatch.Draw(Help_ListBloc[index], Help_BlocPosition[index], colorBloc);
                 spriteBatch.DrawString(font, Help_ListBlocString[index], Help_BlocPosString[index], colorTextBloc);

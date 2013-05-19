@@ -16,6 +16,10 @@ namespace LevelCreator
         public Texture2D bloc2 { get; set; }
         public Texture2D bloc3 { get; set; }
         public Texture2D bloc4 { get; set; }
+        public Texture2D bloc5 { get; set; }
+        public Texture2D bloc6 { get; set; }
+        public Texture2D bloc7 { get; set; }
+        public Texture2D bloc8 { get; set; }
         public Texture2D bloc0 { get; set; }
         Texture2D texture;
         public int type;
@@ -66,6 +70,26 @@ namespace LevelCreator
               Activ = 4;
               Pointer.delete = false;
           }
+          if (state.IsKeyDown(Keys.D5))
+          {
+              Activ = 5;
+              Pointer.delete = false;
+          }
+          if (state.IsKeyDown(Keys.D6))
+          {
+              Activ = 6;
+              Pointer.delete = false;
+          }
+          if (state.IsKeyDown(Keys.D7))
+          {
+              Activ = 7;
+              Pointer.delete = false;
+          }
+          if (state.IsKeyDown(Keys.D8))
+          {
+              Activ = 8;
+              Pointer.delete = false;
+          }
 
         }
 
@@ -82,6 +106,19 @@ namespace LevelCreator
                   
             if (Activ == 4)
                 spriteBatch.Draw(bloc4, position, Color.White);
+
+            if (Activ == 5)
+                spriteBatch.Draw(bloc5, position, Color.White);
+
+            if (Activ == 6)
+                spriteBatch.Draw(bloc6, position, Color.White);
+
+            if (Activ == 7)
+                spriteBatch.Draw(bloc7, position, Color.White);
+
+            if (Activ == 8)
+                spriteBatch.Draw(bloc8, position, Color.White);
+        
         
         }
 
@@ -96,6 +133,12 @@ namespace LevelCreator
             bloc2 = Content.Load<Texture2D>("TextureLevelCreator/bloc2");
             bloc3 = Content.Load<Texture2D>("TextureLevelCreator/bloc3");
             bloc4 = Content.Load<Texture2D>("TextureLevelCreator/bloc4");
+
+            bloc5 = Content.Load<Texture2D>("TextureLevelCreator/brick_1_1");
+            bloc6 = Content.Load<Texture2D>("TextureLevelCreator/brick_1_2");
+            bloc7 = Content.Load<Texture2D>("TextureLevelCreator/brick_1_3");
+            bloc8 = Content.Load<Texture2D>("TextureLevelCreator/brick_1_4");
+
             bloc0 = Content.Load<Texture2D>("TextureLevelCreator/bloc0");   
         }
 

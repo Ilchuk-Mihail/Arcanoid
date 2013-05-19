@@ -79,6 +79,7 @@ namespace Arcanoid
         public Texture2D brick;
         List<Brick> bricks;
         Texture2D[] brickTextures;
+        Texture2D[] brickTextures2;
         //-------/Блоки---------------
 
         SpriteFont font;
@@ -530,7 +531,15 @@ namespace Arcanoid
             brickTextures[3] = Content.Load<Texture2D>("Texture/Bricks/brick_2");
             brickTextures[4] = Content.Load<Texture2D>("Texture/Bricks/brick");
 
-           // help.HelpTextureList.Add(brickTextures[4]);
+            brickTextures2 = new Texture2D[4];
+
+         
+            brickTextures2[0] = Content.Load<Texture2D>("Texture/Bricks/brick_1_4");
+            brickTextures2[1] = Content.Load<Texture2D>("Texture/Bricks/brick_1_3");
+            brickTextures2[2] = Content.Load<Texture2D>("Texture/Bricks/brick_1_2");
+            brickTextures2[3] = Content.Load<Texture2D>("Texture/Bricks/brick_1_1");
+            
+           
          
                listLevel.Ok = Content.Load<Texture2D>("Texture/Ok");
            
@@ -546,6 +555,11 @@ namespace Arcanoid
            // help.HelpTextureList.Add(TexturePoints_20);
            // help.HelpTextureList.Add(TexturePoints_10);
            // help.HelpTextureList.Add(TexturePoints_40);
+
+            for(int i = 0 ; i < 4; i++)
+            {
+                help.Help_ListBloc.Add(brickTextures2[i]);
+            }
 
             BonusTextureMax = Content.Load<Texture2D>("Texture/Bonuses/bonus-max");            help.Help_ListBonus.Add(BonusTextureMax);
             BonusTextureMin = Content.Load<Texture2D>("Texture/Bonuses/bonus-min");            help.Help_ListBonus.Add(BonusTextureMin);
@@ -719,6 +733,70 @@ namespace Arcanoid
                     {
                         Rectangle rect = new Rectangle(x, y, 70, 40);
                         Brick brick = new Brick(brickTextures, 5, rect, BrickType.Mild);
+
+                        Position_points = new Vector2(rect.X + 10, rect.Y + 10);
+                        Stop_Position_points = new Vector2(0, rect.Y + 10);
+                        point = new Points_Anim(TexturePoints_40, Position_points, Stop_Position_points, false, false);
+
+                        points.Add(point);
+
+                        bricks.Add(brick);
+                        CountBricks++;
+
+                    }
+
+                    if (c == '5')
+                    {
+                        Rectangle rect = new Rectangle(x, y, 70, 40);
+                        Brick brick = new Brick(brickTextures2, 4, rect, BrickType.Mild);
+
+                        Position_points = new Vector2(rect.X + 10, rect.Y + 10);
+                        Stop_Position_points = new Vector2(0, rect.Y + 10);
+                        point = new Points_Anim(TexturePoints_40, Position_points, Stop_Position_points, false, false);
+
+                        points.Add(point);
+
+                        bricks.Add(brick);
+                        CountBricks++;
+
+                    }
+
+                    if (c == '6')
+                    {
+                        Rectangle rect = new Rectangle(x, y, 70, 40);
+                        Brick brick = new Brick(brickTextures2, 3, rect, BrickType.Mild);
+
+                        Position_points = new Vector2(rect.X + 10, rect.Y + 10);
+                        Stop_Position_points = new Vector2(0, rect.Y + 10);
+                        point = new Points_Anim(TexturePoints_40, Position_points, Stop_Position_points, false, false);
+
+                        points.Add(point);
+
+                        bricks.Add(brick);
+                        CountBricks++;
+
+                    }
+
+                    if (c == '7')
+                    {
+                        Rectangle rect = new Rectangle(x, y, 70, 40);
+                        Brick brick = new Brick(brickTextures2, 2, rect, BrickType.Mild);
+
+                        Position_points = new Vector2(rect.X + 10, rect.Y + 10);
+                        Stop_Position_points = new Vector2(0, rect.Y + 10);
+                        point = new Points_Anim(TexturePoints_40, Position_points, Stop_Position_points, false, false);
+
+                        points.Add(point);
+
+                        bricks.Add(brick);
+                        CountBricks++;
+
+                    }
+
+                    if (c == '8')
+                    {
+                        Rectangle rect = new Rectangle(x, y, 70, 40);
+                        Brick brick = new Brick(brickTextures2, 1, rect, BrickType.Mild);
 
                         Position_points = new Vector2(rect.X + 10, rect.Y + 10);
                         Stop_Position_points = new Vector2(0, rect.Y + 10);
