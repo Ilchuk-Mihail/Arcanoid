@@ -108,7 +108,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AnimatedSprite.cs" />
-    <Compile Include="AudioManager\AudioManager.cs" />
+    <Compile Include="Managers\AudioManager.cs" />
     <Compile Include="Ball.cs" />
     <Compile Include="Brick.cs" />
     <Compile Include="Bullets.cs" />
@@ -118,6 +118,7 @@
     <Compile Include="Help.cs" />
     <Compile Include="ListLevel.cs" />
     <Compile Include="ListLevelBloc.cs" />
+    <Compile Include="Managers\VideoManager.cs" />
     <Compile Include="MenuSystem\Menu.cs" />
     <Compile Include="MenuSystem\MenuEsc.cs" />
     <Compile Include="MenuSystem\MenuItem.cs" />
