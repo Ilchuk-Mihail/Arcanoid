@@ -10,7 +10,7 @@ using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 using System.IO;
 using Arcanoid.MenuSystem;
-using Arcanoid.Managers;
+using Arcanoid.AudioManager;
 using Microsoft.Xna.Framework.Storage;
 using System.Threading;
 
@@ -34,12 +34,6 @@ namespace Arcanoid
         string[] timeGame = new string[10];
         float timegameSeconds = 0;
         float timeMinutes = 0;
-
-        //-----Video--------
-
-        VideoManager video;
-
-        //-----/Video--------
 
         Rectangle ScreenRectangle;
 
@@ -170,9 +164,6 @@ namespace Arcanoid
             menu = new Menu();
             menuEsc = new MenuEsc();
             Settings = new Settings();
-
-            video = new VideoManager(GraphicsDevice);
-
 
             ///Очистка всього із коду
             ///
@@ -511,11 +502,6 @@ namespace Arcanoid
             listLevBloc.LoadContent(Content);
             help.LoadContent(Content);
 
-            video.LoadContent(Content);
-
-            video.Play();
-          
-
            // help.HelpTextureList.Add(paddleTexture);
           //  help.HelpTextureList.Add(paddleTexture);
 
@@ -596,7 +582,6 @@ namespace Arcanoid
             Background = Content.Load<Texture2D>("Texture/Backgrounds/GameBackground");
             MainBackground = Content.Load<Texture2D>("Texture/Backgrounds/MainBackground");
 
-          
             // TODO: use this.Content to load your game content here         
         }
 
@@ -1038,17 +1023,14 @@ namespace Arcanoid
 
         protected override void Update(GameTime gameTime)
         {
-            video.Update();
-           
             KeyboardState keyboardstate = Keyboard.GetState();
 
             Paused(gameTime);
 
             UpdateActiv(); // Перевірка чи поток LevelCreator відкритий , якщо так, поле Створити рівень не активне 
             
-            if (!pause && video.parametr == 1)
+            if (!pause)
             {
-                
                 if (keyboardstate.IsKeyDown(Keys.Escape) && menuState == MenuState.LevelList)
                 {
                     menuState = MenuState.LevelListBloc;
@@ -1931,9 +1913,6 @@ namespace Arcanoid
                menu.DrawBackground(spriteBatch,menu.Background);
                menu.Draw(spriteBatch);
            }
-
-           video.DrawVideo(spriteBatch);
-
             base.Draw(gameTime);
         }
 
