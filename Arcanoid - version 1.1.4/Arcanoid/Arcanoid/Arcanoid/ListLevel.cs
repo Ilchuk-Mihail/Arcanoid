@@ -11,8 +11,6 @@ namespace Arcanoid
 {
     class ListLevel : Menu
     {
-        Vector2 position = new Vector2(100, 100);
-
         public Texture2D background;
         public Texture2D Ok  {get; set;}
         public Vector2[] OkPosition = new Vector2[10];
@@ -21,16 +19,17 @@ namespace Arcanoid
 
         public Vector2 positionTime = new Vector2(260, -200);
         public Vector2 positionScor = new Vector2(600, -200);
-
-        float pauseTime = 0.0f;
         public bool mainLevelNone = false;
 
+        float pauseTime = 0.0f;
+        Vector2 position = new Vector2(100, 100);
         float pauseT = 0.3f;
-       new public float  Pause
+
+      /*  public float  Pause
         {
             get { return pauseT; }
             set { pauseT = value; }
-        }
+        }*/
 
        public ListLevel()
        {

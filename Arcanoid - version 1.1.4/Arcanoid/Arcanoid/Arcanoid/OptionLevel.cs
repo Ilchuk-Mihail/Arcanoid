@@ -11,6 +11,10 @@ namespace Arcanoid
 {
     public class OptionLevel
     {
+        public bool died = false;
+        public bool lose = false;
+        public bool win = false;
+
         Texture2D YouDied;
         Texture2D YouLose;
         Texture2D YouWin;
@@ -19,9 +23,6 @@ namespace Arcanoid
         Color clr = new Color(0, 0, 0, 0);
         Texture2D fon;
         Vector2 fonPosition;
-        public bool died = false;
-        public bool lose = false;
-        public bool win = false;
 
         Game1 game ;
 
@@ -41,8 +42,7 @@ namespace Arcanoid
             position = new Rectangle(screenBounds.Width / 2  - 180, screenBounds.Height / 2 -100, YouDied.Width, YouDied.Height);
   
         }
-
-        
+    
         public void Died()
         {
             clr.R += 2;

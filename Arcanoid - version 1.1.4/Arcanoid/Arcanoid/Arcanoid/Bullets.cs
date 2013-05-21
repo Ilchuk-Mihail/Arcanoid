@@ -16,11 +16,11 @@ namespace Arcanoid
         public int TotalActiveTime;
         public bool IsVisible;
         public bool IsVisibleBul;
-
-        Texture2D bulTexture;
-        public Vector2 BulpositionLeft ;
+        public Vector2 BulpositionLeft;
         public Vector2 BulpositionRight;
 
+        Texture2D bulTexture;
+    
         public Bullets(Texture2D texture, Vector2 speed, int activeTime)
         {
             this.texture = texture;

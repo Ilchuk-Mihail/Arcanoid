@@ -13,9 +13,9 @@ namespace Arcanoid
     {
         public Vector2 motion;
         public Rectangle position;
+        public bool alive;         // Чи живий об'єкт
 
         float ballSpeed = 6.7f;
-        public bool alive;         // Чи живий об'єкт
         Texture2D TextureBall;
         Texture2D StandTexture;
         Rectangle screenBounds;

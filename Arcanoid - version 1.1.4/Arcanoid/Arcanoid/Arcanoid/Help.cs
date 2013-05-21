@@ -18,7 +18,7 @@ namespace Arcanoid
         private KeyboardState state;
         private KeyboardState oldState;
         private List<string> Help_ListBonusString;
-        Vector2 Startposition = new Vector2(-50,10);
+        Vector2 Startposition = new Vector2(-50, 10);
         Vector2 StartpositionString = new Vector2(300, 15);
         public int indexUpdateDraw = 1;
 
@@ -57,7 +57,7 @@ namespace Arcanoid
             Initialize_3();
             Initialize();
             Initialize_2();
-           
+
 
         }
 
@@ -71,11 +71,11 @@ namespace Arcanoid
             {
                 Help_BlocPosition[index] = Startposition;
                 Help_BlocPosString[index] = StartpositionString;
-   
+
                 Startposition.Y += 58f;
                 StartpositionString.Y += 57f;
                 Help_ListBlocString.Add("Блок розбиваэться за один удар м'ча , може мiстити бонус.\nЗа нього нараховуэться 20 очок!");
-                Help_ListBlocString.Add("Блок розбиваэться за один удар м'ча , може мiстити бонус.\nЗа нього нараховуэться 10 очок!");    
+                Help_ListBlocString.Add("Блок розбиваэться за один удар м'ча , може мiстити бонус.\nЗа нього нараховуэться 10 очок!");
                 Help_ListBlocString.Add("Блок не розбиваэться  :( , \nцей блок можуть розбити тiльки кулi якими стрiляэ ракетка! ");
                 Help_ListBlocString.Add("Блок розбиваэться за 5 ударiв м'ча , iнодi мiстить бонус.\nЗа нього нараховуэться 40 очок!");
                 Help_ListBlocString.Add("Блок розбиваэться за 1 удар м'ча , мiстить бонус. \nЗа нього нараховуэться 40 очок!");
@@ -91,14 +91,14 @@ namespace Arcanoid
 
         private void Initialize_3()
         {
-           // Initialize_2();
+            // Initialize_2();
             positionCredits[0] = new Vector2(350, 660);
-            positionCredits[1] = new Vector2(370, 700);
-            Credits.Add(" Головний програмiст ");
+            positionCredits[1] = new Vector2(385, 700);
+            Credits.Add(" Програмiст та дизайнер ");
             Credits.Add(" Iльчук Михайло ");
         }
 
-        private void Initialize() 
+        private void Initialize()
         {
             Startposition = new Vector2(-50, 10);
             StartpositionString = new Vector2(300, 15);
@@ -106,7 +106,7 @@ namespace Arcanoid
             for (int index = 0; index < 14; index++)
             {
                 Help_BonusPosition[index] = Startposition;
-                Help_BonusPosString[index] = StartpositionString;              
+                Help_BonusPosString[index] = StartpositionString;
 
                 Startposition.Y += 46f;
                 StartpositionString.Y += 46f;
@@ -135,8 +135,8 @@ namespace Arcanoid
         {
             state = Keyboard.GetState();
 
-            if(indexUpdateDraw == 2)
-            Update_1();
+            if (indexUpdateDraw == 2)
+                Update_1();
 
             if (indexUpdateDraw == 1)
                 Update_2();
@@ -230,8 +230,8 @@ namespace Arcanoid
         {
             spriteBatch.Begin();
 
-            if(indexUpdateDraw ==  2)
-                 Draw_1(spriteBatch);
+            if (indexUpdateDraw == 2)
+                Draw_1(spriteBatch);
 
             if (indexUpdateDraw == 1)
                 Draw_2(spriteBatch);
@@ -249,7 +249,7 @@ namespace Arcanoid
             for (int index = 0; index < 14; index++)
             {
                 spriteBatch.Draw(Help_ListBonus[index], Help_BonusPosition[index], color);
-                spriteBatch.DrawString(font, Help_ListBonusString[index], Help_BonusPosString[index], colorText);
+                spriteBatch.DrawString(font, Help_ListBonusString[index], Help_BonusPosString[index], color);
             }
         }
 
@@ -260,7 +260,7 @@ namespace Arcanoid
             for (int index = 0; index < 8; index++)
             {
                 spriteBatch.Draw(Help_ListBloc[index], Help_BlocPosition[index], colorBloc);
-                spriteBatch.DrawString(font, Help_ListBlocString[index], Help_BlocPosString[index], colorTextBloc);
+                spriteBatch.DrawString(font, Help_ListBlocString[index], Help_BlocPosString[index], colorBloc);
             }
             spriteBatch.DrawString(font, "Рухайтесь 'вправо' i 'влiво' , щоб мiняти сторiнки :)   Esc - Вихiд", new Vector2(10, 620), colorBloc);
         }
@@ -275,7 +275,7 @@ namespace Arcanoid
             }
         }
 
-        public  void LoadContent(ContentManager Content)
+        public void LoadContent(ContentManager Content)
         {
             font = Content.Load<SpriteFont>("Game-Font/HelpFont");
 
@@ -287,6 +287,6 @@ namespace Arcanoid
             Help_ListBloc.Add(Content.Load<Texture2D>("Texture/Help/type3"));
             Help_ListBloc.Add(Content.Load<Texture2D>("Texture/Help/type4"));
         }
-       
+
     }
 }

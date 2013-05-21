@@ -276,6 +276,7 @@ namespace LevelCreater
                             if (bloc.Activ == 8)
                                 level[i, j] = 8;
 
+
                             if (Pointer.delete)
                             {
                                 level[i, j] = 0;

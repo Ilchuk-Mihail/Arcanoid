@@ -21,6 +21,7 @@ namespace LevelCreator
         public Texture2D bloc7 { get; set; }
         public Texture2D bloc8 { get; set; }
         public Texture2D bloc0 { get; set; }
+
         Texture2D texture;
         public int type;
 
@@ -70,6 +71,7 @@ namespace LevelCreator
               Activ = 4;
               Pointer.delete = false;
           }
+
           if (state.IsKeyDown(Keys.D5))
           {
               Activ = 5;
@@ -119,7 +121,6 @@ namespace LevelCreator
             if (Activ == 8)
                 spriteBatch.Draw(bloc8, position, Color.White);
         
-        
         }
 
         public void DrawList(SpriteBatch spriteBatch)
@@ -133,13 +134,12 @@ namespace LevelCreator
             bloc2 = Content.Load<Texture2D>("TextureLevelCreator/bloc2");
             bloc3 = Content.Load<Texture2D>("TextureLevelCreator/bloc3");
             bloc4 = Content.Load<Texture2D>("TextureLevelCreator/bloc4");
+            bloc0 = Content.Load<Texture2D>("TextureLevelCreator/bloc0");
 
             bloc5 = Content.Load<Texture2D>("TextureLevelCreator/brick_1_1");
             bloc6 = Content.Load<Texture2D>("TextureLevelCreator/brick_1_2");
             bloc7 = Content.Load<Texture2D>("TextureLevelCreator/brick_1_3");
             bloc8 = Content.Load<Texture2D>("TextureLevelCreator/brick_1_4");
-
-            bloc0 = Content.Load<Texture2D>("TextureLevelCreator/bloc0");   
         }
 
 

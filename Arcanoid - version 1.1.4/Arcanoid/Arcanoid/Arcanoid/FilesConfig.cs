@@ -9,12 +9,13 @@ namespace Arcanoid
 {
     static class FilesConfig
     {
+        public static string pathSDirect;
+
         static string folderName = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
         static string pathDirerectory = Path.Combine(folderName, "Arcanoid");
         static string pathSubDirectory = Path.Combine(pathDirerectory, "Save");
         static string pathFile = Path.Combine(pathSubDirectory, "SaveGame.sav");
 
-        public static string pathSDirect;
         static string[] file = null;
 
         public static void CheckAndCreate()

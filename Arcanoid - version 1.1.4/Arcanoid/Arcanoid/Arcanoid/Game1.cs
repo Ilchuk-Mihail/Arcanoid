@@ -10,15 +10,13 @@ using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 using System.IO;
 using Arcanoid.MenuSystem;
-using Arcanoid.Managers;
+using Arcanoid.AudioManager;
 using Microsoft.Xna.Framework.Storage;
 using System.Threading;
+using Arcanoid.Managers;
 
 namespace Arcanoid
 {
-    /// <summary>
-    /// This is the main type for your game
-    /// </summary>
     public class Game1 : Microsoft.Xna.Framework.Game
     {
         GraphicsDeviceManager graphics;
@@ -35,13 +33,13 @@ namespace Arcanoid
         float timegameSeconds = 0;
         float timeMinutes = 0;
 
+        Rectangle ScreenRectangle;
+
         //-----Video--------
 
         VideoManager video;
 
         //-----/Video--------
-
-        Rectangle ScreenRectangle;
 
         public int Width;
         public int Height;
@@ -134,16 +132,13 @@ namespace Arcanoid
         bool start;
         //---------/Бонуси------------
 
-        
-        Texture2D textr;
-        Texture2D textr2;
+
+        Texture2D AnimRedTexture;
+        Texture2D BreaksBlocTexture;
         double elapsed;
       
         int CountBricks;
         int CountBricks_hard;
-
-        int test;
-
 
         //-------Bullets----------
         List<Bullets> bullets = new List<Bullets>();
@@ -172,7 +167,6 @@ namespace Arcanoid
             Settings = new Settings();
 
             video = new VideoManager(GraphicsDevice);
-
 
             ///Очистка всього із коду
             ///
@@ -511,14 +505,6 @@ namespace Arcanoid
             listLevBloc.LoadContent(Content);
             help.LoadContent(Content);
 
-            video.LoadContent(Content);
-
-            video.Play();
-          
-
-           // help.HelpTextureList.Add(paddleTexture);
-          //  help.HelpTextureList.Add(paddleTexture);
-
             optionLevel = new OptionLevel(ScreenRectangle,Content);
 
             paddleTexture = Content.Load<Texture2D>("Texture/paddle");   
@@ -531,9 +517,8 @@ namespace Arcanoid
             ballFireTexture = Content.Load<Texture2D>("Texture/Fireball");
             ball = new Ball(ballTexture, ScreenRectangle);
 
-           // help.HelpTextureList.Add(ballTexture);
-           // help.HelpTextureList.Add(ballFireTexture);
-
+            video.LoadContent(Content); //Відео
+            video.Play();
 
             font = Content.Load<SpriteFont>("Game-Font/GameFont");
 
@@ -547,30 +532,25 @@ namespace Arcanoid
 
             brickTextures2 = new Texture2D[4];
 
-         
+
             brickTextures2[0] = Content.Load<Texture2D>("Texture/Bricks/brick_1_4");
             brickTextures2[1] = Content.Load<Texture2D>("Texture/Bricks/brick_1_3");
             brickTextures2[2] = Content.Load<Texture2D>("Texture/Bricks/brick_1_2");
             brickTextures2[3] = Content.Load<Texture2D>("Texture/Bricks/brick_1_1");
             
-           
          
                listLevel.Ok = Content.Load<Texture2D>("Texture/Ok");
-           
 
-            textr = Content.Load<Texture2D>("Texture/Bricks/test3");
-            textr2 = Content.Load<Texture2D>("Texture/Bricks/test2");
+
+               AnimRedTexture = Content.Load<Texture2D>("Texture/Bricks/test3");
+               BreaksBlocTexture = Content.Load<Texture2D>("Texture/Bricks/test2");
 
 
             TexturePoints_20 = Content.Load<Texture2D>("Texture/Points/20_points");
             TexturePoints_10 = Content.Load<Texture2D>("Texture/Points/10_points");
             TexturePoints_40 = Content.Load<Texture2D>("Texture/Points/40_points");
 
-           // help.HelpTextureList.Add(TexturePoints_20);
-           // help.HelpTextureList.Add(TexturePoints_10);
-           // help.HelpTextureList.Add(TexturePoints_40);
-
-            for(int i = 0 ; i < 4; i++)
+            for (int i = 0; i < 4; i++)
             {
                 help.Help_ListBloc.Add(brickTextures2[i]);
             }
@@ -596,8 +576,7 @@ namespace Arcanoid
             Background = Content.Load<Texture2D>("Texture/Backgrounds/GameBackground");
             MainBackground = Content.Load<Texture2D>("Texture/Backgrounds/MainBackground");
 
-          
-            // TODO: use this.Content to load your game content here         
+             
         }
 
         private void StartGame(bool parametr)
@@ -706,9 +685,6 @@ namespace Arcanoid
         {
             string[] lines;
 
-         /*   if (currentLevel > 3)
-                currentLevel = 1;*/
-
             bricks = new List<Brick>();
             
             points = new List<Points_Anim>();
@@ -743,23 +719,6 @@ namespace Arcanoid
             {
                 foreach (char c in line)
                 {
-
-                    if (c == 'X' || c == '4' )
-                    {
-                        Rectangle rect = new Rectangle(x, y, 70, 40);
-                        Brick brick = new Brick(brickTextures, 5, rect, BrickType.Mild);
-
-                        Position_points = new Vector2(rect.X + 10, rect.Y + 10);
-                        Stop_Position_points = new Vector2(0, rect.Y + 10);
-                        point = new Points_Anim(TexturePoints_40, Position_points, Stop_Position_points, false, false);
-
-                        points.Add(point);
-
-                        bricks.Add(brick);
-                        CountBricks++;
-
-                    }
-
                     if (c == '5')
                     {
                         Rectangle rect = new Rectangle(x, y, 70, 40);
@@ -824,6 +783,22 @@ namespace Arcanoid
 
                     }
 
+                    if (c == 'X' || c == '4' )
+                    {
+                        Rectangle rect = new Rectangle(x, y, 70, 40);
+                        Brick brick = new Brick(brickTextures, 5, rect, BrickType.Mild);
+
+                        Position_points = new Vector2(rect.X + 10, rect.Y + 10);
+                        Stop_Position_points = new Vector2(0, rect.Y + 10);
+                        point = new Points_Anim(TexturePoints_40, Position_points, Stop_Position_points, false, false);
+
+                        points.Add(point);
+
+                        bricks.Add(brick);
+                        CountBricks++;
+
+                    }
+
                     if (c == 'Y' || c == '3')
                     {
 
@@ -845,7 +820,7 @@ namespace Arcanoid
                     {
 
                         Rectangle rect = new Rectangle(x, y, 70, 40);
-                        Brick brick = new Brick(5, 10, rect, textr, BrickType.BreaksBloc);
+                        Brick brick = new Brick(5, 10, rect, AnimRedTexture, BrickType.BreaksBloc);
 
                         Position_points = new Vector2(rect.X + 10, rect.Y + 10);
                         Stop_Position_points = new Vector2(0, rect.Y + 10);
@@ -861,7 +836,7 @@ namespace Arcanoid
                     {
 
                         Rectangle rect = new Rectangle(x, y, 70, 40);
-                        Brick brick = new Brick(4, 10, rect, textr2, BrickType.AnimRed);
+                        Brick brick = new Brick(4, 10, rect, BreaksBlocTexture, BrickType.AnimRed);
 
                         Position_points = new Vector2(rect.X + 10, rect.Y + 10);
                         Stop_Position_points = new Vector2(0, rect.Y + 10);
@@ -1039,16 +1014,15 @@ namespace Arcanoid
         protected override void Update(GameTime gameTime)
         {
             video.Update();
-           
+
             KeyboardState keyboardstate = Keyboard.GetState();
 
             Paused(gameTime);
 
             UpdateActiv(); // Перевірка чи поток LevelCreator відкритий , якщо так, поле Створити рівень не активне 
-            
+
             if (!pause && video.parametr == 1)
             {
-                
                 if (keyboardstate.IsKeyDown(Keys.Escape) && menuState == MenuState.LevelList)
                 {
                     menuState = MenuState.LevelListBloc;
@@ -1308,7 +1282,6 @@ namespace Arcanoid
                     {
                         if ((bonuses[j].GetBounds().Intersects(paddle.GetBounds)) && bonuses[j].BonusValue == 1)
                         {
-                            test++;
                             bonuses[j].alive = false;
                             bonuses[j] = null;
                             paddle.GetBounds = new Rectangle(paddle.GetBounds.X,
@@ -1319,7 +1292,6 @@ namespace Arcanoid
                         }
                         else if ((bonuses[j].GetBounds().Intersects(paddle.GetBounds)) && bonuses[j].BonusValue == 2)
                         {
-                            test++;
                             bonuses[j].alive = false;
                             bonuses[j] = null;
                             paddle.GetBounds = new Rectangle(paddle.GetBounds.X,
@@ -1330,49 +1302,42 @@ namespace Arcanoid
                         }
                         else if ((bonuses[j].GetBounds().Intersects(paddle.GetBounds)) && bonuses[j].BonusValue == 3)
                         {
-                            test++;
                             bonuses[j].alive = false;
                             bonuses[j] = null;
                             Score += 1000;
                         }
                         else if ((bonuses[j].GetBounds().Intersects(paddle.GetBounds)) && bonuses[j].BonusValue == 4)
                         {
-                            test++;
                             bonuses[j].alive = false;
                             bonuses[j] = null;
                             Score -= 1000;
                         }
                         else if ((bonuses[j].GetBounds().Intersects(paddle.GetBounds)) && bonuses[j].BonusValue == 5)
                         {
-                            test++;
                             bonuses[j].alive = false;
                             bonuses[j] = null;
                             ball.SpeedBall = ball.SpeedBall + 1.5f;
                         }
                         else if ((bonuses[j].GetBounds().Intersects(paddle.GetBounds)) && bonuses[j].BonusValue == 6)
                         {
-                            test++;
                             bonuses[j].alive = false;
                             bonuses[j] = null;
                             ball.SpeedBall = ball.SpeedBall - 1.5f;
                         }
                         else if ((bonuses[j].GetBounds().Intersects(paddle.GetBounds)) && bonuses[j].BonusValue == 7)
                         {
-                            test++;
                             bonuses[j].alive = false;
                             bonuses[j] = null;
                             paddle.Velocity = new Vector2(paddle.Velocity.X + 3.5f, 0);
                         }
                         else if ((bonuses[j].GetBounds().Intersects(paddle.GetBounds)) && bonuses[j].BonusValue == 8)
                         {
-                            test++;
                             bonuses[j].alive = false;
                             bonuses[j] = null;
                             paddle.Velocity = new Vector2(paddle.Velocity.X - 2.5f, 0);
                         }
                         else if ((bonuses[j].GetBounds().Intersects(paddle.GetBounds)) && bonuses[j].BonusValue == 9)
                         {
-                            test++;
                             bonuses[j].alive = false;
                             bonuses[j] = null;
                             if (Lives < 3)
@@ -1382,7 +1347,6 @@ namespace Arcanoid
                         }
                         else if ((bonuses[j].GetBounds().Intersects(paddle.GetBounds)) && bonuses[j].BonusValue == 10)
                         {
-                            test++;
                             bonuses[j].alive = false;
                             bonuses[j] = null;
                             st = 0;
@@ -1396,14 +1360,12 @@ namespace Arcanoid
                                 TimeBonusVisible = 10;
                             }
 
-                            test++;
                             bonuses[j].alive = false;
                             bonuses[j] = null;
                             bonusVisible = true;
                         }
                         else if ((bonuses[j].GetBounds().Intersects(paddle.GetBounds)) && bonuses[j].BonusValue == 12)
                         {
-                            test++;
                             bonuses[j].alive = false;
                             bonuses[j] = null;
                             ball.GetBounds = new Rectangle(ball.GetBounds.X,
@@ -1414,7 +1376,6 @@ namespace Arcanoid
                         }
                         else if ((bonuses[j].GetBounds().Intersects(paddle.GetBounds)) && bonuses[j].BonusValue == 13)
                         {
-                            test++;
                             bonuses[j].alive = false;
                             bonuses[j] = null;
                             ball.GetBounds = new Rectangle(ball.GetBounds.X,
@@ -1425,7 +1386,6 @@ namespace Arcanoid
                         }
                           else if ((bonuses[j].GetBounds().Intersects(paddle.GetBounds)) && bonuses[j].BonusValue == 14)
                           {
-                              test++;
                               bonuses[j].alive = false;
                               bonuses[j] = null;
                               ball.Texture = ballFireTexture;
@@ -1655,20 +1615,17 @@ namespace Arcanoid
         {
 
             if (bricks[i].type == BrickType.BreaksBloc)
-            {
-               // points[i] = new Points_Anim(TexturePoints_10, Position_points, Stop_Position_points, true, true);
+            {  
                 Score += 10;
             }
             else
                 if (bricks[i].type == BrickType.AnimRed)
-                {
-                  //  points[i] = new Points_Anim(TexturePoints_20, Position_points, Stop_Position_points, true, true);
+                {   
                     Score += 20;
                 }
                 else
                     if (bricks[i].hits == 0)
-                    {
-                        //points[i] = new Points_Anim(TexturePoints_40, Position_points, Stop_Position_points, true, true);
+                    {  
                         Score += 40;
                     }
                     
@@ -1724,88 +1681,6 @@ namespace Arcanoid
 
             }
 
-            /*           
-                    
-
-                       else if (ball.GetBoundsNext().Top <= bricks[i].position.Bottom  && ball.GetBoundsNext().Right >= bricks[i].position.Bottom && ball.GetBoundsNext().Bottom >= bricks[i].position.Right)
-                                   ball.motion.Y *= -1;
-
-                        else if (ball.GetBoundsNext().Top <= bricks[i].position.Bottom && ball.GetBoundsNext().Right >= bricks[i].position.Bottom && ball.GetBoundsNext().Bottom <= bricks[i].position.Right)
-                                   ball.motion.X *= -1;*/
-         
-           /*  if ((ball.GetBoundsNext().Bottom <= bricks[i].position.Center.X && ball.GetBoundsNext().Left >= bricks[i].position.Center.X))
-                ball.motion.X *= -1;
-             else
-             if ((ball.GetBoundsNext().Bottom <= bricks[i].position.Center.X && ball.GetBoundsNext().Right >= bricks[i].position.Center.Y))
-                 ball.motion.X *= -1;
-
-            else  if ((ball.GetBoundsNext().Top <= bricks[i].position.Center.X && ball.GetBoundsNext().Left >= bricks[i].position.Center.X))
-                     ball.motion.Y *= -1;
-
-            else if ((ball.GetBoundsNext().Top <= bricks[i].position.Center.X && ball.GetBoundsNext().Right >= bricks[i].position.Center.Y))
-                ball.motion.Y *= -1;
-            }*/
-
-            /*
-                if ((ball.GetBoundsNext().Bottom <= bricks[i].position.Center.Y && ball.GetBoundsNext().Left >= bricks[i].position.Center.Y))
-                    ball.motion.X *= -1;
-
-                 if ((ball.GetBoundsNext().Bottom <= bricks[i].position.Center.X && ball.GetBoundsNext().Left >= bricks[i].position.Center.Y))
-                    ball.motion.X *= -1;
-
-                 if ((ball.GetBoundsNext().Bottom <= bricks[i].position.Center.X && ball.GetBoundsNext().Right <= bricks[i].position.Center.X))
-                    ball.motion.X *= -1;
-        
-
-             if ((ball.GetBoundsNext().Top <= bricks[i].position.Center.X && ball.GetBoundsNext().Left >= bricks[i].position.Center.Y))
-                ball.motion.Y *= -1;
-
-             else   if ((ball.GetBoundsNext().Top >= bricks[i].position.Center.Y && ball.GetBoundsNext().Left >= bricks[i].position.Center.Y))
-                ball.motion.Y *= -1;
-            
-            */
-           /* else if (ball.GetBoundsNext().Right >= bricks[i].position.Center.X && ball.GetBoundsNext().Top <= bricks[i].position.Center.Y)
-                ball.motion.Y *= -1;
-
-            else if (ball.GetBoundsNext().Right >= bricks[i].position.Center.X && ball.GetBoundsNext().Top >= bricks[i].position.Center.X)
-                ball.motion.Y *= -1;
-
-            else if (ball.GetBoundsNext().Right >= bricks[i].position.Center.X && ball.GetBoundsNext().Top >= bricks[i].position.Center.X)
-                ball.motion.X *= -1;
-
-            else if (ball.GetBoundsNext().Right >= bricks[i].position.Center.X && ball.GetBoundsNext().Bottom >= bricks[i].position.Center.Y)
-                ball.motion.X *= -1;
-
-            else if (ball.GetBoundsNext().Right >= bricks[i].position.Center.Y && ball.GetBoundsNext().Bottom >= bricks[i].position.Center.Y)
-                ball.motion.X *= -1;
-
-            else if (ball.GetBoundsNext().Top <= bricks[i].position.Center.Y && ball.GetBoundsNext().Right >= bricks[i].position.Center.X)
-                ball.motion.Y *= -1;
-
-            else if (ball.GetBoundsNext().Top <= bricks[i].position.Center.Y && ball.GetBoundsNext().Right <= bricks[i].position.Center.X)
-                ball.motion.X *= -1;
-
-            else if ((ball.GetBoundsNext().Bottom <= bricks[i].position.Center.X && ball.GetBoundsNext().Right >= bricks[i].position.Center.X))
-                ball.motion.X *= -1;
-
-            else if ((ball.GetBoundsNext().Bottom <= bricks[i].position.Center.Y && ball.GetBoundsNext().Left >= bricks[i].position.Center.Y))
-                ball.motion.X *= -1;
-
-            else if (ball.GetBoundsNext().Bottom <= bricks[i].position.Center.X && ball.GetBoundsNext().Right <= bricks[i].position.Center.Y)
-                ball.motion.Y *= -1;
-
-            else if (ball.GetBoundsNext().Left <= bricks[i].position.Center.X && ball.GetBoundsNext().Top <= bricks[i].position.Center.Y)
-                ball.motion.Y *= -1;
-
-            else if (ball.GetBoundsNext().Left >= bricks[i].position.Center.X && ball.GetBoundsNext().Top <= bricks[i].position.Center.Y)
-                ball.motion.Y *= -1;
-
-            else if (ball.GetBoundsNext().Left >= bricks[i].position.Center.X && ball.GetBoundsNext().Top >= bricks[i].position.Center.X)
-               ball.motion.Y *= -1;
-
-            else if (ball.GetBoundsNext().Left >= bricks[i].position.Center.X && ball.GetBoundsNext().Top <= bricks[i].position.Center.X)
-                ball.motion.X *= -1;*/
-  
         }
 
 
@@ -1931,8 +1806,8 @@ namespace Arcanoid
                menu.DrawBackground(spriteBatch,menu.Background);
                menu.Draw(spriteBatch);
            }
-
-           video.DrawVideo(spriteBatch);
+            if( video.parametr != 1)
+            video.DrawVideo(spriteBatch);
 
             base.Draw(gameTime);
         }
@@ -1989,12 +1864,6 @@ namespace Arcanoid
                 spriteBatch.DrawString(font, "Час  0" + (int)timeMinutes + " : " + Math.Round(timegameSeconds, 0).ToString(), new Vector2(400, 0), Color.White);
 
             spriteBatch.DrawString(font, "Життя :  "/*+ Lives */, new Vector2(685, 0), Color.White);
-
-            spriteBatch.DrawString(font, "Test-Colision : " + test, new Vector2(0, 350), Color.White);
-            spriteBatch.DrawString(font, "Width-Paddle : " + paddle.GetBounds.Width, new Vector2(0, 380), Color.White);
-            spriteBatch.DrawString(font, "Velocity-Paddle : " + paddle.Velocity.X, new Vector2(0, 410), Color.White);
-            spriteBatch.DrawString(font, "Velocity-Ball : " + ball.SpeedBall, new Vector2(0, 440), Color.White);
-            spriteBatch.DrawString(font, "Game-Time : " + gameTime.TotalGameTime.Seconds, new Vector2(0, 480), Color.White);
 
             if (bonusVisible)
             {

@@ -9,8 +9,9 @@ namespace Arcanoid
 {
     class ObjectBonus: Points_Anim
     {
-        Vector2 VelocityBonus = new Vector2(0, 3.5f);
         public bool deleteBonus = false;
+
+        Vector2 VelocityBonus = new Vector2(0, 3.5f);
         int randomBonus;
 
         public ObjectBonus(Texture2D BonusTexture, Vector2 position ,Vector2 positionStop, int randomBonus)

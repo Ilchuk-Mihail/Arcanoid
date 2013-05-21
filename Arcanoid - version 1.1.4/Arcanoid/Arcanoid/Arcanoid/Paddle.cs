@@ -17,7 +17,7 @@ namespace Arcanoid
         public bool alive;         // Чи живий об'єкт
         Texture2D TexturePaddle;
         Rectangle screenBounds;    //  Прямокутник екрану
-        new  Rectangle position;
+        Rectangle position;
         Vector2 paddleSpeed;
 
         public Paddle(Texture2D texturePaddle, Rectangle screenBounds)

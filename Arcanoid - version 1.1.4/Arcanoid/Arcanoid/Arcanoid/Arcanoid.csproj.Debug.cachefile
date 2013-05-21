@@ -46,15 +46,15 @@ Content\Texture\Backgrounds\SettingBackground.xnb
 Content\Texture\Backgrounds\GameBackground.xnb
 Content\Texture\Backgrounds\EscBackground.xnb
 Content\Texture\Backgrounds\MainBackground.xnb
-Content\Texture\Bricks\brick_1_1.xnb
-Content\Texture\Bricks\brick_1_2.xnb
-Content\Texture\Bricks\brick_1_3.xnb
-Content\Texture\Bricks\brick_1_4.xnb
 Content\Game-Font\MenuFont.xnb
 Content\Game-Font\ListLevelFont.xnb
 Content\Game-Font\HelpFont.xnb
 Content\Game-Font\GameFont.xnb
 Content\Sounds\Bill Psarras - Feel the same.xnb
+Content\Texture\Bricks\brick_1_1.xnb
+Content\Texture\Bricks\brick_1_2.xnb
+Content\Texture\Bricks\brick_1_3.xnb
+Content\Texture\Bricks\brick_1_4.xnb
 Content\Video\Clip.xnb
 Content\Video\Clip.wmv
 Content\Sounds\Arcanoid.xgs
