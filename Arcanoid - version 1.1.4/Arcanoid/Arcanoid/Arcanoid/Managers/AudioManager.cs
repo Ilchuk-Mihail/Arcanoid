@@ -23,20 +23,17 @@ namespace Arcanoid.AudioManager
         {
             engine.Update();
         }
-    /*    public static void PlayShootSound()
-        {
-            soundBank.PlayCue("fire");
-        }*/
-        public static void StartMenuMusic()
+ 
+        public static void StartMusic()
         {
             if (mainTheme == null)
             {
-                mainTheme = soundBank.GetCue("Bill Psarras - Feel the same");
+                mainTheme = soundBank.GetCue("game");
                 mainTheme.Play();
             }    
         }
 
-        public static void StopMenuMusic()
+        public static void StopMusic()
         {
             if (mainTheme != null)
             {

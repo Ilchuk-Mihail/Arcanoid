@@ -6,6 +6,7 @@ using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework.Audio;
 
 namespace Arcanoid
 {
@@ -21,6 +22,8 @@ namespace Arcanoid
             protected float pulse;
             protected KeyboardState state;
             float pauseTime = 0.5f;
+
+            public SoundEffect click;
 
             public float Pause
             {
@@ -55,6 +58,8 @@ namespace Arcanoid
                 if (state.IsKeyDown(Keys.Enter) && oldState.IsKeyUp(Keys.Enter) && pauseTime < 0 )
                 {   
                     Items[currentItem].OnClick();
+
+                    click.Play();
                   
                     pauseTime = 0.5f;
                 }
@@ -129,6 +134,8 @@ namespace Arcanoid
             {
                 font = Content.Load<SpriteFont>("Game-Font/MenuFont");
                 background = Content.Load<Texture2D>("Texture/Backgrounds/MenuBackground");
+
+                click = Content.Load<SoundEffect>("Sounds/click");
             }
         }
    

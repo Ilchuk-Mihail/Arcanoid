@@ -35,11 +35,23 @@ namespace Arcanoid
 
         Rectangle ScreenRectangle;
 
-        //-----Video--------
-
+        //-----Video---------
         VideoManager video;
-
         //-----/Video--------
+
+        SoundEffect soundHardBloc;
+        SoundEffect soundBallDied;
+        SoundEffect soundPaddle;
+        SoundEffect soundBonus1000;
+        SoundEffect soundBlocBreak;
+        SoundEffect soundVelosity;
+        SoundEffect soundHitBullet;
+        SoundEffect soundExtBall;
+        SoundEffect soundBonusBig;
+        SoundEffect soundBonusBlocAnim;
+        SoundEffect soundbloc;
+        SoundEffect newLevel;
+        SoundEffect gameSound;
 
         public int Width;
         public int Height;
@@ -337,7 +349,7 @@ namespace Arcanoid
         
         void exitGame_Click(object sender, EventArgs e)
         {
-            AudioManager.AudioManager.StopMenuMusic();
+            AudioManager.AudioManager.StopMusic();
             this.Exit();
         }
 
@@ -576,8 +588,20 @@ namespace Arcanoid
             Background = Content.Load<Texture2D>("Texture/Backgrounds/GameBackground");
             MainBackground = Content.Load<Texture2D>("Texture/Backgrounds/MainBackground");
 
-             
-        }
+            soundHardBloc = Content.Load<SoundEffect>("Sounds/chain");
+            soundBallDied = Content.Load<SoundEffect>("Sounds/splash");
+            soundPaddle = Content.Load<SoundEffect>("Sounds/PaddlePlusMinus");
+            soundBonus1000 = Content.Load<SoundEffect>("Sounds/bonus1000");
+            soundVelosity = Content.Load<SoundEffect>("Sounds/velosity");
+            soundBlocBreak = Content.Load<SoundEffect>("Sounds/broken");
+            soundHitBullet = Content.Load<SoundEffect>("Sounds/hitbullet");
+            soundExtBall = Content.Load<SoundEffect>("Sounds/ExtBall");
+            soundBonusBig = Content.Load<SoundEffect>("Sounds/bonusBig");
+            soundBonusBlocAnim = Content.Load<SoundEffect>("Sounds/bong");
+            soundbloc = Content.Load<SoundEffect>("Sounds/bloc");
+            newLevel = Content.Load<SoundEffect>("Sounds/NewLevel");
+            gameSound = Content.Load<SoundEffect>("Sounds/game"); 
+        } 
 
         private void StartGame(bool parametr)
         {
@@ -594,7 +618,7 @@ namespace Arcanoid
                 optionLevel.died = false;
                 optionLevel.lose = false;
                 LoadGame();
-                this.Window.Title = "Гра завантаженна " + gameData.level[gameData.indexLevel].ToString() + " --- " + gameData.bloc;
+               // this.Window.Title = "Гра завантаженна " + gameData.level[gameData.indexLevel].ToString() + " --- " + gameData.bloc;
 
             }
             else
@@ -650,7 +674,7 @@ namespace Arcanoid
              gameData = new GameData(BlocLevel,Level,currentLevel,timeGame,ScoreList);
              FilesConfig.Serialize(gameData);
              UpdateLevel_and_BlocList();
-             this.Window.Title = "Гра збережена " + gameData.level[gameData.indexLevel].ToString() + "  " + gameData.bloc;
+            // this.Window.Title = "Гра збережена " + gameData.level[gameData.indexLevel].ToString() + "  " + gameData.bloc;
         }
 
         private void NewBlocGame()
@@ -858,6 +882,7 @@ namespace Arcanoid
             }
            
             BonusPosition();
+           // ne7wLevel.Play();
         }
 
         public void BonusPosition()
@@ -1099,14 +1124,16 @@ namespace Arcanoid
 
                 if (menuState == MenuState.LevelListBloc)
                 {
-                    Loadin(gameTime);
-
-                    if (Loading)
                     listLevBloc.Update(gameTime);
                 }
 
-                 if (menuState == MenuState.LevelList)
+                if (menuState == MenuState.LevelList)
+                {
+                    Loadin(gameTime);
+
+                    if (Loading)
                     listLevel.Update(gameTime);
+                }
 
                   if (gameState == GameState.EscMenu)
                       menuEsc.Update(gameTime);
@@ -1128,10 +1155,10 @@ namespace Arcanoid
                       UpdateGameLogic(gameTime);      
                   }
 
-                  if (gameState == GameState.Menu /*&& menuState == MenuState.Basic*/)
-                      AudioManager.AudioManager.StartMenuMusic();
+                  if (gameState == GameState.Menu || gameState == GameState.Game)
+                      AudioManager.AudioManager.StartMusic();
                   else
-                      AudioManager.AudioManager.StopMenuMusic();
+                      AudioManager.AudioManager.StopMusic();
 
                   if (gameState == GameState.Menu && menuState == MenuState.Basic)
                       menu.Update(gameTime);
@@ -1208,10 +1235,13 @@ namespace Arcanoid
                 if (bricks[i].position.Intersects(ball.GetBoundsNext()) && bricks[i].type == BrickType.Hard)
                 {
                     if (!ball.BallFire)
+                    {
                         BrickCollision(i);
+                        soundHardBloc.Play();
+                    }
                 }
 
-                else if (bricks[i].position.Intersects(ball.GetBoundsNext()) && ((bricks[i].type == BrickType.BreaksBloc )||(bricks[i].type ==  BrickType.AnimRed)))
+                else if (bricks[i].position.Intersects(ball.GetBoundsNext()) && bricks[i].type == BrickType.BreaksBloc )
                 {
                     elapsed = gameTime.ElapsedGameTime.TotalSeconds;
                     bricks[i].stopAnim = true;
@@ -1221,12 +1251,31 @@ namespace Arcanoid
                     points[i].run = true;
 
                     Bonuses(i);
-
                     Points(i);
 
                     if (!ball.BallFire)
+                    {
                         BrickCollision(i);
+                        soundBlocBreak.Play();
+                    }
+                }
+                else if (bricks[i].position.Intersects(ball.GetBoundsNext()) && (bricks[i].type == BrickType.AnimRed))
+                {
+                    elapsed = gameTime.ElapsedGameTime.TotalSeconds;
+                    bricks[i].stopAnim = true;
+                    bricks[i].isDead = true;
 
+                    points[i].alive = true;
+                    points[i].run = true;
+
+                    Bonuses(i);
+                    Points(i);
+
+                    if (!ball.BallFire)
+                    {
+                        BrickCollision(i);
+                        soundBonusBlocAnim.Play();                        
+                    }
                 }
 
                 else if (bricks[i].stopAnim)
@@ -1253,7 +1302,7 @@ namespace Arcanoid
                         if (bricks[i].setHit())
                             bricks[i].isDead = true;
 
-
+                          soundbloc.Play();
 
                         if (bricks[i].isDead)
                         {
@@ -1288,6 +1337,7 @@ namespace Arcanoid
                                                              paddle.GetBounds.Y,
                                                              paddle.GetBounds.Width + paddle.GetBounds.Width,
                                                              paddle.GetBounds.Height);
+                            soundPaddle.Play();
 
                         }
                         else if ((bonuses[j].GetBounds().Intersects(paddle.GetBounds)) && bonuses[j].BonusValue == 2)
@@ -1298,6 +1348,7 @@ namespace Arcanoid
                                                              paddle.GetBounds.Y,
                                                              paddle.Width,
                                                              paddle.Height);
+                            soundPaddle.Play();
 
                         }
                         else if ((bonuses[j].GetBounds().Intersects(paddle.GetBounds)) && bonuses[j].BonusValue == 3)
@@ -1305,36 +1356,42 @@ namespace Arcanoid
                             bonuses[j].alive = false;
                             bonuses[j] = null;
                             Score += 1000;
+                            soundBonus1000.Play();
                         }
                         else if ((bonuses[j].GetBounds().Intersects(paddle.GetBounds)) && bonuses[j].BonusValue == 4)
                         {
                             bonuses[j].alive = false;
                             bonuses[j] = null;
                             Score -= 1000;
+                            soundBonus1000.Play();
                         }
                         else if ((bonuses[j].GetBounds().Intersects(paddle.GetBounds)) && bonuses[j].BonusValue == 5)
                         {
                             bonuses[j].alive = false;
                             bonuses[j] = null;
                             ball.SpeedBall = ball.SpeedBall + 1.5f;
+                            soundVelosity.Play();
                         }
                         else if ((bonuses[j].GetBounds().Intersects(paddle.GetBounds)) && bonuses[j].BonusValue == 6)
                         {
                             bonuses[j].alive = false;
                             bonuses[j] = null;
                             ball.SpeedBall = ball.SpeedBall - 1.5f;
+                            soundVelosity.Play();
                         }
                         else if ((bonuses[j].GetBounds().Intersects(paddle.GetBounds)) && bonuses[j].BonusValue == 7)
                         {
                             bonuses[j].alive = false;
                             bonuses[j] = null;
                             paddle.Velocity = new Vector2(paddle.Velocity.X + 3.5f, 0);
+                            soundVelosity.Play();
                         }
                         else if ((bonuses[j].GetBounds().Intersects(paddle.GetBounds)) && bonuses[j].BonusValue == 8)
                         {
                             bonuses[j].alive = false;
                             bonuses[j] = null;
                             paddle.Velocity = new Vector2(paddle.Velocity.X - 2.5f, 0);
+                            soundVelosity.Play();
                         }
                         else if ((bonuses[j].GetBounds().Intersects(paddle.GetBounds)) && bonuses[j].BonusValue == 9)
                         {
@@ -1343,6 +1400,7 @@ namespace Arcanoid
                             if (Lives < 3)
                             {
                                 Lives++;
+                                soundExtBall.Play();
                             }
                         }
                         else if ((bonuses[j].GetBounds().Intersects(paddle.GetBounds)) && bonuses[j].BonusValue == 10)
@@ -1373,6 +1431,7 @@ namespace Arcanoid
                                                            ball.Width + 10,
                                                            ball.Height + 10
                                                             );
+                            soundBonusBig.Play();
                         }
                         else if ((bonuses[j].GetBounds().Intersects(paddle.GetBounds)) && bonuses[j].BonusValue == 13)
                         {
@@ -1383,6 +1442,7 @@ namespace Arcanoid
                                                            ball.Width - 8,
                                                            ball.Height - 8
                                                             );
+                            soundBonusBig.Play();
                         }
                           else if ((bonuses[j].GetBounds().Intersects(paddle.GetBounds)) && bonuses[j].BonusValue == 14)
                           {
@@ -1477,7 +1537,7 @@ namespace Arcanoid
             if (ball.OffBottom())
             {
                 Lives--;
-
+                soundBallDied.Play();
                 optionLevel.died = true; 
 
                 if (Lives <= 0)
@@ -1500,6 +1560,7 @@ namespace Arcanoid
             if ((bricks.Count - (del + CountBricks_hard)) == 0)
             {
                 optionLevel.win = true;
+
                 StartGame(false);
                 if (keyboardstate.IsKeyDown(Keys.Enter))
                 {
@@ -1514,9 +1575,11 @@ namespace Arcanoid
 
                     SaveGame();
                     StartGame(true);
+                    newLevel.Play();
                     CreateLevel(gameData.level[gameData.indexLevel]);
                    
                 }
+               
             }
             // CreateLevel();
         }
@@ -1592,6 +1655,7 @@ namespace Arcanoid
 
                 if (shotTimer > timeBetweenShots)
                 {
+                    soundHitBullet.Play();
                     shotTimer = 0;
                     Bullets Bullet1 = new Bullets(Content.Load<Texture2D>("Texture/Bullet"), new Vector2(0, 2), 2000);
                     Bullets Bullet2 = new Bullets(Content.Load<Texture2D>("Texture/Bullet"), new Vector2(0, 2), 2000);
@@ -1748,42 +1812,42 @@ namespace Arcanoid
 
             if (menuState == MenuState.LevelListBloc)
             {
-                if (!Loading)
-                {
-                    spriteBatch.Begin();
-                    spriteBatch.Draw(LoadingTexture, Vector2.Zero, LoadColor);
-                    spriteBatch.End();
-                }
-                else
-                {
                     listLevel.DrawBackground(spriteBatch, listLevel.Background);
 
                     listLevBloc.Draw(spriteBatch);
-                }
             }
 
              if (menuState == MenuState.LevelList)
              {
-                 listLevel.DrawBackground(spriteBatch, listLevel.Background);
-
-                 spriteBatch.Begin();
-
-                 spriteBatch.DrawString(listLevel.font,"Час",listLevel.positionTime, Color.White);
-                 spriteBatch.DrawString(listLevel.font, "Рахунок", listLevel.positionScor, Color.White);
-
-                 for(int i= 0; i < gameData.level[gameData.indexLevel]; i++)
-                 {                      
-                     if (ScoreList[i] != 0)
-                     {
-                         spriteBatch.DrawString(listLevel.font, gameData.timeGame[i], listLevel.TimePosition[i], Color.White);
-                         spriteBatch.DrawString(listLevel.font, ScoreList[i].ToString(), listLevel.ScorePosition[i], Color.White);
-                         spriteBatch.Draw(listLevel.Ok, listLevel.OkPosition[i], Color.White);
-                     }
+                 if (!Loading)
+                 {
+                     spriteBatch.Begin();
+                     spriteBatch.Draw(LoadingTexture, Vector2.Zero, LoadColor);
+                     spriteBatch.End();
                  }
+                 else
+                 {
+                     listLevel.DrawBackground(spriteBatch, listLevel.Background);
 
-                 spriteBatch.End();
+                     spriteBatch.Begin();
 
-                 listLevel.Draw(spriteBatch);
+                     spriteBatch.DrawString(listLevel.font, "Час", listLevel.positionTime, Color.White);
+                     spriteBatch.DrawString(listLevel.font, "Рахунок", listLevel.positionScor, Color.White);
+
+                     for (int i = 0; i < gameData.level[gameData.indexLevel]; i++)
+                     {
+                         if (ScoreList[i] != 0)
+                         {
+                             spriteBatch.DrawString(listLevel.font, gameData.timeGame[i], listLevel.TimePosition[i], Color.White);
+                             spriteBatch.DrawString(listLevel.font, ScoreList[i].ToString(), listLevel.ScorePosition[i], Color.White);
+                             spriteBatch.Draw(listLevel.Ok, listLevel.OkPosition[i], Color.White);
+                         }
+                     }
+
+                     spriteBatch.End();
+
+                     listLevel.Draw(spriteBatch);
+                 }
              }
 
              if (gameState == GameState.Game)

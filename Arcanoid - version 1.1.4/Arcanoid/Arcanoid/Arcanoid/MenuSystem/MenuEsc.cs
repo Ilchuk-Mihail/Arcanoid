@@ -6,6 +6,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Audio;
 
 namespace Arcanoid.MenuSystem
 {
@@ -47,6 +48,7 @@ namespace Arcanoid.MenuSystem
         {
             font = Content.Load<SpriteFont>("Game-Font/ListLevelFont");
             Escbackground = Content.Load<Texture2D>("Texture/Backgrounds/EscBackground");
+            click = Content.Load<SoundEffect>("Sounds/click");
         }
 
         

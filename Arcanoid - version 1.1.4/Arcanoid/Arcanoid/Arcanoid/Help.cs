@@ -32,6 +32,8 @@ namespace Arcanoid
 
         private Texture2D Backgrounds;
         private Texture2D DevBackground;
+        private Texture2D KeyboardTexture;
+        private Texture2D KeyboardTextureFon;
 
         Color color;
         Color colorText;
@@ -54,7 +56,7 @@ namespace Arcanoid
             Help_BlocPosString = new Vector2[8];
             positionCredits = new Vector2[2];
 
-            Initialize_3();
+            Initialize_4();
             Initialize();
             Initialize_2();
 
@@ -64,8 +66,8 @@ namespace Arcanoid
         public void Initialize_2()
         {
 
-            Startposition = new Vector2(-50, 100);
-            StartpositionString = new Vector2(300, 100);
+            Startposition = new Vector2(-50, 10);
+            StartpositionString = new Vector2(300, 10);
 
             for (int index = 0; index < 8; index++)
             {
@@ -89,7 +91,7 @@ namespace Arcanoid
             colorTextBloc = new Color(0, 0, 0, 0);
         }
 
-        private void Initialize_3()
+        private void Initialize_4()
         {
             // Initialize_2();
             positionCredits[0] = new Vector2(350, 660);
@@ -141,18 +143,18 @@ namespace Arcanoid
             if (indexUpdateDraw == 1)
                 Update_2();
 
-            if (indexUpdateDraw == 3)
-                Update_3();
+            if (indexUpdateDraw == 4)
+                Update_4();
 
             if (state.IsKeyDown(Keys.Right) && oldState.IsKeyUp(Keys.Right))
             {
-                if (indexUpdateDraw == 2 || indexUpdateDraw == 1)
+                if (indexUpdateDraw == 2 || indexUpdateDraw == 1 || indexUpdateDraw == 3)
                     indexUpdateDraw++;
             }
 
             if (state.IsKeyDown(Keys.Left) && oldState.IsKeyUp(Keys.Left))
             {
-                if (indexUpdateDraw == 2 || indexUpdateDraw == 3)
+                if (indexUpdateDraw == 2 || indexUpdateDraw == 3 || indexUpdateDraw == 4)
                     indexUpdateDraw--;
             }
 
@@ -163,7 +165,7 @@ namespace Arcanoid
         {
 
             Initialize_2();
-            Initialize_3();
+            Initialize_4();
 
             for (int index = 0; index < 14; index++)
             {
@@ -189,7 +191,7 @@ namespace Arcanoid
         private void Update_2()
         {
             Initialize();
-            Initialize_3();
+            Initialize_4();
 
             for (int index = 0; index < 8; index++)
             {
@@ -213,7 +215,7 @@ namespace Arcanoid
 
         }
 
-        private void Update_3()
+        private void Update_4()
         {
             Initialize();
 
@@ -223,7 +225,7 @@ namespace Arcanoid
             }
 
             if (positionCredits[1].Y < 0)
-                Initialize_3();
+                Initialize_4();
         }
 
         public void Draw(SpriteBatch spriteBatch)
@@ -238,6 +240,9 @@ namespace Arcanoid
 
             if (indexUpdateDraw == 3)
                 Draw_3(spriteBatch);
+
+            if (indexUpdateDraw == 4)
+                Draw_4(spriteBatch);
 
             spriteBatch.End();
         }
@@ -267,6 +272,13 @@ namespace Arcanoid
 
         private void Draw_3(SpriteBatch spriteBatch)
         {
+            spriteBatch.Draw(KeyboardTextureFon, new Vector2(0, 100), Color.White);
+            spriteBatch.Draw(KeyboardTexture, new Vector2(0,100), Color.White);
+            spriteBatch.DrawString(font, "Рухайтесь 'вправо' i 'влiво' , щоб мiняти сторiнки :)   Esc - Вихiд", new Vector2(10, 620), Color.White);
+        }
+
+        private void Draw_4(SpriteBatch spriteBatch)
+        {
             spriteBatch.Draw(DevBackground, Vector2.Zero, Color.White);
 
             for (int index = 0; index < 2; index++)
@@ -286,6 +298,9 @@ namespace Arcanoid
             Help_ListBloc.Add(Content.Load<Texture2D>("Texture/Help/type2"));
             Help_ListBloc.Add(Content.Load<Texture2D>("Texture/Help/type3"));
             Help_ListBloc.Add(Content.Load<Texture2D>("Texture/Help/type4"));
+
+            KeyboardTexture = Content.Load<Texture2D>("Texture/Help/keyboards");
+            KeyboardTextureFon = Content.Load<Texture2D>("Texture/Help/FonKeys");
         }
 
     }

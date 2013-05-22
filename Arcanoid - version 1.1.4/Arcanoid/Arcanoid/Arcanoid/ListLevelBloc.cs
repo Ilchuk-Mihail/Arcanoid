@@ -5,6 +5,7 @@ using System.Text;
 using Arcanoid.MenuSystem;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Audio;
 
 namespace Arcanoid
 {
@@ -14,6 +15,7 @@ namespace Arcanoid
         public override void LoadContent(ContentManager Content)
         {
             font = Content.Load<SpriteFont>("Game-Font/MenuFont");
+            click = Content.Load<SoundEffect>("Sounds/click");
         }
     }
 }

@@ -46,16 +46,32 @@ Content\Texture\Backgrounds\SettingBackground.xnb
 Content\Texture\Backgrounds\GameBackground.xnb
 Content\Texture\Backgrounds\EscBackground.xnb
 Content\Texture\Backgrounds\MainBackground.xnb
+Content\Texture\Bricks\brick_1_1.xnb
+Content\Texture\Bricks\brick_1_2.xnb
+Content\Texture\Bricks\brick_1_3.xnb
+Content\Texture\Bricks\brick_1_4.xnb
 Content\Game-Font\MenuFont.xnb
 Content\Game-Font\ListLevelFont.xnb
 Content\Game-Font\HelpFont.xnb
 Content\Game-Font\GameFont.xnb
 Content\Sounds\Bill Psarras - Feel the same.xnb
-Content\Texture\Bricks\brick_1_1.xnb
-Content\Texture\Bricks\brick_1_2.xnb
-Content\Texture\Bricks\brick_1_3.xnb
-Content\Texture\Bricks\brick_1_4.xnb
 Content\Video\Clip.xnb
+Content\Texture\Help\keyboards.xnb
+Content\Texture\Help\FonKeys.xnb
+Content\Sounds\click.xnb
+Content\Sounds\chain.xnb
+Content\Sounds\splash.xnb
+Content\Sounds\PaddlePlusMinus.xnb
+Content\Sounds\bonus1000.xnb
+Content\Sounds\broken.xnb
+Content\Sounds\velosity.xnb
+Content\Sounds\hitbullet.xnb
+Content\Sounds\ExtBall.xnb
+Content\Sounds\bong.xnb
+Content\Sounds\bonusBig.xnb
+Content\Sounds\bloc.xnb
+Content\Sounds\NewLevel.xnb
+Content\Sounds\game.xnb
 Content\Video\Clip.wmv
 Content\Sounds\Arcanoid.xgs
 Content\Sounds\Wave Bank.xwb
@@ -70,8 +86,8 @@ Content\TextureLevelCreator\LevelGrid.xnb
 Content\TextureLevelCreator\Pointer.xnb
 Content\TextureLevelCreator\bloc0.xnb
 Content\TextureLevelCreator\bloc4.xnb
-Content\FontLevelCreator\font.xnb
 Content\TextureLevelCreator\brick_1_1.xnb
 Content\TextureLevelCreator\brick_1_2.xnb
 Content\TextureLevelCreator\brick_1_3.xnb
 Content\TextureLevelCreator\brick_1_4.xnb
+Content\FontLevelCreator\font.xnb

@@ -225,8 +225,8 @@ Wave Bank
     Windows Bank Path Edited = 0;
     Seek Tables = 1;
     Compression Preset Name = <none>;
-    Bank Last Revised Low = 3300184976;
-    Bank Last Revised High = 30297643;
+    Bank Last Revised Low = 1895550312;
+    Bank Last Revised High = 30299918;
 
     Wave
     {
@@ -248,6 +248,29 @@ Wave Bank
             File Type = 1;
             Last Modified Low = 1281571156;
             Last Modified High = 30297642;
+        }
+    }
+
+    Wave
+    {
+        Name = game;
+        File = game.wav;
+        Build Settings Last Modified Low = 1895550312;
+        Build Settings Last Modified High = 30299918;
+
+        Cache
+        {
+            Format Tag = 0;
+            Channels = 1;
+            Sampling Rate = 11025;
+            Bits Per Sample = 0;
+            Play Region Offset = 44;
+            Play Region Length = 2540161;
+            Loop Region Offset = 0;
+            Loop Region Length = 0;
+            File Type = 1;
+            Last Modified Low = 4040484633;
+            Last Modified High = 30299917;
         }
     }
 }
@@ -308,6 +331,54 @@ Sound Bank
         }
     }
 
+    Sound
+    {
+        Name = game;
+        Volume = -1200;
+        Pitch = 0;
+        Priority = 0;
+
+        Category Entry
+        {
+            Name = Default;
+        }
+
+        Track
+        {
+            Volume = 0;
+            Use Filter = 0;
+
+            Play Wave Event
+            {
+                Loop Count = 255;
+                Break Loop = 0;
+                Use Speaker Position = 0;
+                Use Center Speaker = 1;
+                New Speaker Position On Loop = 1;
+                Speaker Position Angle = 0.000000;
+                Speaker Position Arc = 0.000000;
+
+                Event Header
+                {
+                    Timestamp = 0;
+                    Relative = 0;
+                    Random Recurrence = 0;
+                    Random Offset = 0;
+                }
+
+                Wave Entry
+                {
+                    Bank Name = Wave Bank;
+                    Bank Index = 0;
+                    Entry Name = game;
+                    Entry Index = 1;
+                    Weight = 255;
+                    Weight Min = 0;
+                }
+            }
+        }
+    }
+
     Cue
     {
         Name = Bill Psarras - Feel the same;
@@ -323,6 +394,26 @@ Sound Bank
         {
             Name = Bill Psarras - Feel the same;
             Index = 0;
+            Weight Min = 0;
+            Weight Max = 255;
+        }
+    }
+
+    Cue
+    {
+        Name = game;
+
+        Variation
+        {
+            Variation Type = 3;
+            Variation Table Type = 1;
+            New Variation on Loop = 0;
+        }
+
+        Sound Entry
+        {
+            Name = game;
+            Index = 1;
             Weight Min = 0;
             Weight Max = 255;
         }

@@ -83,7 +83,7 @@ namespace LevelCreator
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.DrawString(font, @"Змiнити тип вказiвника - 1,2,3,4", position, Color.Black);
+            spriteBatch.DrawString(font, @"Змiнити тип вказiвника - 1 - 8", position, Color.Black);
             spriteBatch.DrawString(font, @"Зберегти рiвень - Space ", (position + new Vector2(0,20)), Color.Black);
           
             spriteBatch.DrawString(font, @"Закрити допомогу - F2 ", (position + new Vector2(0, 60)), Color.Black);
