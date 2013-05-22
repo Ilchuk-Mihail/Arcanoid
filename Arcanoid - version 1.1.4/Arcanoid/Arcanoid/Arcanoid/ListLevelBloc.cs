@@ -14,7 +14,7 @@ namespace Arcanoid
 
         public override void LoadContent(ContentManager Content)
         {
-            font = Content.Load<SpriteFont>("Game-Font/MenuFont");
+            font = Content.Load<SpriteFont>("Game-Font/ListLevelFont");
             click = Content.Load<SoundEffect>("Sounds/click");
         }
     }

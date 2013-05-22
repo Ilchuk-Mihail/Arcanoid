@@ -182,7 +182,7 @@ namespace Arcanoid
 
             ///Очистка всього із коду
             ///
-       /*    Level[0] = 1;
+          /* Level[0] = 10;
 
             for(int j = 0; j< 10; j++ )
             {
