@@ -56,7 +56,9 @@ namespace Arcanoid
 
         public static void ResetMainLevel()
         {
-            for (int numberLevel = 0; numberLevel < MainLevelsLoad(); numberLevel++)
+            int maxLevel =  MainLevelsLoad();
+            
+            for (int numberLevel = 0; numberLevel < maxLevel; numberLevel++)
             {
                 File.Delete(file[numberLevel]);
             }

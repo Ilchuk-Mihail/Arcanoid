@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Audio;
 
 namespace Arcanoid
 {
@@ -21,6 +22,7 @@ namespace Arcanoid
         {
             font = Content.Load<SpriteFont>("Game-Font/ListLevelFont");
             SettingBackground = Content.Load<Texture2D>("Texture/Backgrounds/SettingBackground");
+            click = Content.Load<SoundEffect>("Sounds/click");
         }
     }
 }

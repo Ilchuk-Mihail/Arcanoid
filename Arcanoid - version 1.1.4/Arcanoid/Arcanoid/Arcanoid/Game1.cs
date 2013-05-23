@@ -337,6 +337,8 @@ namespace Arcanoid
             threadCreator.Start();
             // thread.Join();
 
+            loading = 0.3f;
+            Loading = false;
             menu.CurrentItem = 3;
             levelCreate.Active = false;
         }
@@ -381,7 +383,7 @@ namespace Arcanoid
 
         void mainLevels_Click(object sender, EventArgs e)
         {
-            if (MainlistLevel.Items.Count == 0)
+            if (MainlistLevel.Items.Count == 0 | FilesConfig.MainLevelsLoad() == 0)
             {
                 MainlistLevel.mainLevelNone = true;
             }
@@ -1074,6 +1076,7 @@ namespace Arcanoid
                 {
                     gameState = GameState.Menu;
                     menuState = MenuState.Basic;
+
                     loading = 0.3f;
                     Loading = false;
                 }
@@ -1805,7 +1808,7 @@ namespace Arcanoid
                     spriteBatch.Begin();
 
                     spriteBatch.Draw(MainBackground, Vector2.Zero, Color.White);
-                    spriteBatch.DrawString(menu.font, "У Вас '0' власних рiвнiв  ;) ", new Vector2(220, 200), Color.Black);
+                    spriteBatch.DrawString(menu.font, "У Вас '0' власних рiвнiв  ;) ", new Vector2(220, 200), Color.White);
 
                     spriteBatch.End();
                 }
